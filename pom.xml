@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>org.mk</groupId>
 	<artifactId>empireDemo</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>empireDemo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
