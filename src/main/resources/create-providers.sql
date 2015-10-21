@@ -1,5 +1,5 @@
 create table provider ( 
-        id identity primary key,
+        id serial primary key,
 	definition varchar(255),
 	providerId integer,
 	providername varchar(255),
@@ -9,8 +9,8 @@ create table provider (
 	providerzip integer,
 	hrrDescription varchar(127),
 	totdischarges integer,
-	avgcoveredcharges double,
-	avgtotpayments double,
-	avgmedicarepayments double
+	avgcoveredcharges double precision,
+	avgtotpayments double precision,
+	avgmedicarepayments double precision
 );
  
