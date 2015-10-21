@@ -1,8 +1,12 @@
 package empire.demo.conf;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,11 +27,29 @@ public class ApplicationConfiguration {
 	  @Bean
 	  public DataSource dataSource() {
 
-	    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-	    return builder
-	    	.setType(EmbeddedDatabaseType.H2)
-	    	.addScripts("create-providers.sql", "inserts.sql")
-	    	.build();
+		  URI dbUri = null;
+		try {
+			dbUri = new URI(System.getenv("DATABASE_URL"));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	        String username = dbUri.getUserInfo().split(":")[0];
+	        String password = dbUri.getUserInfo().split(":")[1];
+	        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+	        BasicDataSource basicDataSource = new BasicDataSource();
+	        basicDataSource.setUrl(dbUrl);
+	        basicDataSource.setUsername(username);
+	        basicDataSource.setPassword(password);
+	        return (DataSource) basicDataSource;
+
+//	    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//	    return builder
+//	    	.setType(EmbeddedDatabaseType.H2)
+//	    	.addScripts("create-providers.sql", "inserts.sql")
+//	    	.build();
 	  }
 
 	  @Bean
