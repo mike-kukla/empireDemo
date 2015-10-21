@@ -57,7 +57,8 @@ public class ApplicationConfiguration {
 	  public EntityManagerFactory entityManagerFactory() {
 
 	    HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-	    vendorAdapter.setGenerateDdl(true);
+	   // vendorAdapter.setGenerateDdl(true);
+
 
 	    LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 	    factory.setJpaVendorAdapter(vendorAdapter);
